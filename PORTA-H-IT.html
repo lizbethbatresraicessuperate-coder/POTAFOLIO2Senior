@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglés - Carrusel 3D Minimalista</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+/* ----------------------------------------------
+* ESTILOS BASE (PLANTILLA PRINCIPAL)
+---------------------------------------------- */
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+h1, h3 {
+    color: #0b0b57;
+}
+
+/* ESTILO PARA LA IMAGEN DE CABECERA (ALTURA AUMENTADA Y AJUSTADA) */
+header {
+    background-color: transparent; 
+    padding: 0; 
+    height: 550px; /* ALTURA AUMENTADA SOLICITADA */
+    width: 100%;
+    /* === RUTA DE IMAGEN DE CABECERA (TU IMAGEN "Inglés.jpg") === */
+    background-image: url('images/IT.png'); 
+    background-size: cover;
+    background-position: top center; /* Enfoca la parte superior de la imagen */
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Las propiedades de texto (color, font-size, text-shadow) han sido ELIMINADAS */
+}
+@media (max-width: 768px) {
+    header {
+        height: 350px; /* ALTURA AUMENTADA PARA MÓVILES */
+    }
+}
+
+.materia_es{
+    text-align: center;
+    margin-top: 10px;
+}
+.section-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.btn-custom {
+    background-color: #0b0b57;
+    color: white;
+    border-radius: 20px;
+    padding: 0.5rem 1.5rem;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0 0.3rem;
+}
+.btn-custom:hover {
+    background-color: #1919a3;
+    color: white;
+}
+
+/* ESTILO PARA EL PÁRRAFO LUEGO DEL CARRUSEL */
+.carousel-after-text {
+    margin-top: 20px;
+    padding: 0 15px;
+    text-align: center;
+}
+
+/* ----------------------------------------------
+* ESTILOS DEL FOOTER PRINCIPAL (ESTÁTICO)
+---------------------------------------------- */
+.main-footer {
+    background-color: #0b0b57; /* Azul oscuro */
+    color: #ffffff;
+    padding: 0; /* Eliminado el padding vertical para que la imagen toque los bordes */
+    font-size: 0.9rem;
+}
+.main-footer h5 {
+    color: #ffffff;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+.main-footer a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+    display: block; 
+    margin-bottom: 5px;
+}
+.main-footer a:hover {
+    color: #a0a3ff; /* Un azul más claro al pasar el ratón */
+}
+.footer-text {
+    margin-top: 10px; /* Reducido el margen superior */
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px 0; /* Padding vertical en la línea de derechos */
+}
+/* ----------------------------------------------
+* ESTILOS DE BOTONES FLOTANTES (AUDIO Y VOLVER ARRIBA)
+---------------------------------------------- */
+footer {
+    background-color: transparent; 
+    padding: 0;
+    margin-top: 0;
+}
+
+/* Estilo base para todos los botones fijos/flotantes */
+.fixed-button {
+    background-color: #0b0b57; /* Opacidad total (color sólido) */
+    color: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    transition: background-color 0.3s, transform 0.3s;
+    
+    /* PROPIEDADES FLOTANTES */
+    position: fixed; 
+    right: 20px;
+    z-index: 1000;
+    cursor: pointer;
+}
+.fixed-button:hover {
+    background-color: #1919a3;
+    transform: scale(1.1);
+    color: white;
+}
+
+/* Botón Volver Arriba */
+.scroll-to-top {
+    font-size: 24px;
+    bottom: 20px; /* Posición flotante */
+}
+
+/* Botón de Reproducción/Pausa (Flotante en la esquina, encima de Volver Arriba) */
+.audio-float-button {
+    font-size: 1.8rem; 
+    bottom: 80px; /* Posición flotante */
+    border: none;
+    padding-left: 3px; /* Ajuste visual para el triángulo de Play */
+}
+
+
+/* ESTILO PARA EL LOGO IMAGEN */
+.navbar-brand img {
+    height: 40px; 
+    width: auto;
+}
+@media (max-width: 768px) {
+    .navbar-brand img {
+        height: 35px; 
+    }
+}
+
+/* ----------------------------------------------
+* ESTILOS DEL CARRUSEL 3D
+---------------------------------------------- */
+.carousel-body-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0; 
+    background-color: transparent; 
+    perspective: 1500px; 
+    overflow: hidden; 
+
+    
+}
+
+.carousel-wrapper {
+    display: flex; 
+    align-items: center;
+    position: relative; 
+    padding: 0 250px; 
+}
+
+.carousel-container {
+    position: relative;
+    width: 500px; 
+    height: 350px; 
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease-in-out;
+}
+
+.carousel-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    overflow: hidden; 
+    backface-visibility: hidden;
+    border-radius: 8px;
+    transition: transform 0.8s ease-in-out, filter 0.8s ease-in-out, opacity 0.8s ease-in-out;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Estilos de los botones */
+.nav-button {
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 15px 22px; 
+    cursor: pointer;
+    font-size: 30px; 
+    font-weight: bold;
+    border-radius: 50%;
+    z-index: 20;
+    transition: background 0.3s, transform 0.3s;
+    outline: none;
+    position: absolute; 
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.nav-button:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: translateY(-50%) scale(1.1); 
+}
+
+.prev-button { left: 0; }
+.next-button { right: 0; }
+
+/* MEDIA QUERIES PARA RESPONSIVIDAD */
+@media (max-width: 768px) {
+    .carousel-wrapper {
+        padding: 0 10px; 
+    }
+    .carousel-container {
+        /* Tamaño se controla por JS */
+        width: 300px; 
+        height: 200px; 
+    }
+    .nav-button {
+        padding: 10px 15px; 
+        font-size: 20px;
+    }
+}
+@media (min-width: 769px) and (max-width: 992px) {
+    .carousel-wrapper {
+        padding: 0 100px; 
+    }
+    .carousel-container {
+        /* Tamaño se controla por JS */
+        width: 400px; 
+        height: 280px;
+    }
+}
+</style>
+</head>
+<body id="top">
+
+<audio id="myAudio" src="fondo_musical.mp3" preload="auto" loop></audio>
+
+<nav class="navbar navbar-expand-lg bg-white shadow-sm">
+<div class="container">
+    <a class="navbar-brand fw-bold" href="index.html">
+        <img src="images/LOGO.png" alt="Logo de la Marca"> 
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <ul class="navbar-nav">
+    <li class="nav-item"><a class="nav-link" href="PORTA-H-ENG.html">Inglés</a></li>
+    <li class="nav-item"><a class="nav-link" href="PORTA-H-Val.html">Valores</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Informática</a></li>
+    <li class="nav-item"><a class="nav-link" href="PORTA-H-CV.html">CV</a></li>
+    </ul>
+    </div>
+</div>
+</nav>
+
+<header>
+</header>
+
+<div class="materia_es">
+    <h1>Informática es...</h1>
+    <p>Lo que más me gusta de la materia de inglés es que siempre aprendo algo nuevo y útil. Me gusta poder comunicarme mejor y entender más cosas cada vez, ya sea al leer, escribir o hablar. Las clases suelen ser dinámicas y entretenidas, sobre todo cuando hacemos actividades en grupo o juegos que nos ayudan a practicar de una forma más relajada. También me gusta que el inglés es una herramienta muy importante para el futuro, porque abre muchas oportunidades para estudiar, trabajar o viajar. Además, me gusta la forma en que los teachers explican y hacen que la clase sea interesante, porque así aprender se vuelve algo que realmente disfruto.</p>
+    <div class="mt-3">
+        <a href="#bloque1" class="btn-custom">Primer Año</a>
+        <a href="#bloque2" class="btn-custom">Segundo Año</a>
+        <a href="#bloque3" class="btn-custom">Tercer Año</a>
+    </div>
+</div>
+<section id="bloque1" class="container my-5">
+    <h3 class="mb-4">Primer Año</h3>
+    <div class="row align-items-center">
+        <div class="col-md-4">
+            <img src="ruta-de-tu-imagen1.jpg" alt="Imagen" class="section-img">
+        </div>
+        <div class="col-md-8">
+            <p>En primer año, en la materia de IT, empezamos aprendiendo cosas básicas, pero aun así fue muy útil porque me enseñaron a usarlas de una mejor manera. Por ejemplo, con Word aprendí funciones que no conocía y también las normas APA, que al principio me parecieron un poco complicadas, pero luego las entendí mejor con la práctica. Lo que más me gustó de la materia fue la paciencia y la alegría del teacher al darnos clase, ya que hacía que el ambiente fuera más cómodo y divertido. Gracias a eso, las clases se sentían ligeras y siempre tenía ganas de aprender más.</p>
+        </div>
+        
+        <div class="col-12">
+            <div class="carousel-body-wrapper">
+                <div class="carousel-wrapper">
+                    <button class="nav-button prev-button">❮</button>
+                    <div class="carousel-container">
+                        <div class="carousel-item"><img src="images/1.svg" alt="Lago"></div>
+                        <div class="carousel-item"><img src="images/2.svg" alt="Bosque"></div>
+                        <div class="carousel-item"><img src="images/3.svg" alt="Bosque"></div>
+                        
+                    </div>
+                    <button class="nav-button next-button">❯</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12">
+            <p class="carousel-after-text">
+                La hackathon fue una actividad en la que creamos una aplicación enfocada en resolver una problemática social. En nuestro caso, desarrollamos una tienda en línea para los agromercados y también una plataforma que conectaba a agrónomos con personas que ofrecían trabajos relacionados. Fue una experiencia muy interesante porque pudimos aplicar nuestros conocimientos de tecnología para buscar una solución útil e innovadora. Yo estuve a cargo del diseño y de algunas funciones de la aplicación, lo cual me permitió aprender mucho sobre organización y trabajo en equipo. Una de las partes más complicadas fue que la información sobre Power Apps estaba algo desactualizada, lo que nos hizo investigar por nuestra cuenta y adaptarnos a los cambios. Aun así, fue una experiencia muy divertida y satisfactoria, ya que logramos crear algo funcional y con propósito.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<section id="bloque2" class="container my-5">
+    <h3 class="mb-4">Segundo Año</h3>
+    <div class="row mb-4">
+        <div class="col-md-6 col-lg-4">
+            <img src="ruta-de-tu-imagen2.jpg" alt="Imagen" class="section-img">
+        </div>
+        <div class="col-md-6 col-lg-8">
+            <p>En segundo año la materia de IT fue más didáctica, especialmente por el tema de la programación. Al principio me costaba un poco entenderlo, pero el teacher siempre nos daba tips para mejorar el código y también nos enseñaba cosas extra que no estaban en el programa. Me gustaba mucho su forma de enseñar, porque siempre estaba dispuesto a dar la milla extra para que entendiéramos. Al inicio no me sentía capaz de dominar Python, pero con práctica y paciencia fui mejorando, y al final terminé disfrutándolo. Lo mejor fue que logré pasar la certificación con excelentes resultados, lo cual me hizo sentir muy orgullosa de mí misma.</p>
+        </div>
+
+        <div class="col-12">
+            <div class="carousel-body-wrapper">
+                <div class="carousel-wrapper">
+                    <button class="nav-button prev-button">❮</button>
+                    <div class="carousel-container">
+                        <div class="carousel-item"><img src="images/25.svg"Montañas"></div>
+                        <div class="carousel-item"><img src="images/26.svg" alt="Lago"></div>
+                        <div class="carousel-item"><img src="images/27.svg" alt="Bosque"></div>
+                        
+                    </div>
+                    <button class="nav-button next-button">❯</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12">
+            <p class="carousel-after-text">
+                Mi proyecto de programación fue un juego tipo Galaxy o Shooter, en el que pude aplicar varios conceptos básicos del lenguaje de programación Python. A través de este proyecto aprendí a usar ciclos, condiciones, listas y otras herramientas que me ayudaron a entender mejor cómo funcionan los juegos por dentro. Me gustó mucho poder darle mi propio toque al diseño y la dinámica, haciendo que el juego se sintiera único y diferente. Durante el proceso también logré reforzar mis conocimientos y darme cuenta de lo mucho que disfruto programar. Fue una experiencia divertida y muy útil para seguir mejorando mis habilidades en el área.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section id="bloque3" class="container my-5">
+    <h3 class="mb-4">Tercer Año</h3>
+    <div class="row align-items-center mb-4">
+        <div class="col-md-4">
+            <img src="ruta-de-tu-imagen6.jpg" alt="Imagen" class="section-img">
+        </div>
+        <div class="col-md-8">
+            <p>En tercer año sentí que por fin pudimos poner en práctica todo lo que habíamos aprendido en los años anteriores. Al principio pensaba que ya no había mucho más por aprender, pero el teacher siempre encontraba nuevos temas que resultaban muy útiles, como la experiencia de usuario en una aplicación. Ese conocimiento me ayudó bastante durante la ExpoTech y me hizo entender mejor cómo pensar en las personas que usan una app, no solo en cómo se programa. Además, gracias a todo eso descubrí que me gustaría dedicarme al branding de marcas, ya que me encanta combinar la parte creativa con la tecnológica para crear algo que conecte con la gente.</p>
+        </div>
+
+        <div class="col-12">
+            <div class="carousel-body-wrapper">
+                <div class="carousel-wrapper">
+                    <button class="nav-button prev-button">❮</button>
+                    <div class="carousel-container">
+                        <div class="carousel-item"><img src="images/19.svg" alt="Montañas"></div>
+                        <div class="carousel-item"><img src="images/20.svg" alt="Lago"></div>
+                        <div class="carousel-item"><img src="images/21.svg" alt="Bosque"></div>
+                        
+                    </div>
+                    <button class="nav-button next-button">❯</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12">
+            <p class="carousel-after-text">
+                La ExpoTech es un evento donde cada centro presenta una aplicación enfocada en resolver una problemática social, como la falta de empleo o la educación. En mi caso, mi grupo representó al centro con una aplicación que tenía dos modos: el primero era para los usuarios, quienes podían crear su currículum, practicar entrevistas, realizar test que suelen aplicar las empresas y tener su propio portafolio. El segundo modo era para las empresas, que podían crear entrevistas, recibir currículums desde la plataforma y asignar o programar entrevistas. Fue una experiencia muy enriquecedora, ya que pudimos mostrar cómo la tecnología puede ayudar a conectar a las personas con oportunidades laborales reales. Además, me gustó mucho trabajar en equipo y ver cómo nuestra idea cobraba vida durante el evento.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<div class="container-fluid main-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center p-0"> 
+                <a href="https://www.canva.com/design/DAG4U0sksgA/IbDj1i_2fi2TskZcJLTriA/edit?utm_content=DAG4U0sksgA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank" style="display: block;">
+                    <img src="images/imagen_footer2.png" alt="Imagen de Enlace del Footer" style="width: 100%; height: auto; display: block;">
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <p class="footer-text">
+                    &copy; 2025 Helen Candray. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <a href="#top" class="scroll-to-top fixed-button" title="Volver Arriba">
+        ↑ 
+    </a>
+</footer>
+
+<button id="audioControlBtn" class="audio-float-button fixed-button" title="Reproducir/Pausar Música de Fondo">
+    ▶
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    
+    // ----------------------------------------------
+    // LÓGICA DE AUDIO (INICIO AL PRIMER CLIC O SCROLL)
+    // ----------------------------------------------
+    const realAudio = document.getElementById('myAudio'); 
+    const audioButton = document.getElementById('audioControlBtn');
+    let isPlaying = false; 
+
+    function tryStartAudio() {
+        if (realAudio && realAudio.paused) {
+            // Intenta reproducir el audio y maneja la promesa
+            realAudio.play().then(() => {
+                // Éxito al reproducir
+                isPlaying = true;
+                audioButton.innerHTML = '⏸'; // Cambia el icono a pausa
+                // Detiene los listeners automáticos después del primer éxito
+                document.removeEventListener('click', tryStartAudio);
+                document.removeEventListener('scroll', tryStartAudio);
+            }).catch(error => {
+                // Falla (bloqueo del navegador). Mantiene el icono de Play.
+                console.warn("Autoplay bloqueado. El usuario debe usar el botón de la esquina.");
+            });
+        }
+    }
+
+    // Escucha el primer clic O el primer scroll en TODO EL DOCUMENTO
+    document.addEventListener('click', tryStartAudio);
+    document.addEventListener('scroll', tryStartAudio);
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Lógica del botón de la esquina para CONTROL manual (pausa/play)
+        if (audioButton && realAudio) {
+            audioButton.addEventListener('click', () => {
+                // Si está pausado, intenta reproducir
+                if (realAudio.paused) {
+                    realAudio.play().then(() => {
+                        audioButton.innerHTML = '⏸';
+                        isPlaying = true;
+                    }).catch(error => {
+                        console.error("No se pudo reproducir el audio manualmente:", error);
+                    });
+                } else {
+                    // Si está reproduciendo, pausa
+                    realAudio.pause();
+                    audioButton.innerHTML = '▶';
+                    isPlaying = false;
+                }
+            });
+        }
+
+        // SCROLL SUAVE (Funcionalidad Volver Arriba)
+        const scrollToTopBtn = document.querySelector('.scroll-to-top');
+        if (scrollToTopBtn) {
+            scrollToTopBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        }
+    });
+
+    
+    // ----------------------------------------------
+    // LÓGICA DE CARRUSEL 3D
+    // ----------------------------------------------
+    const carouselContainers = document.querySelectorAll('.carousel-container');
+    
+    function initializeCarousel(carouselContainer) {
+        const wrapper = carouselContainer.closest('.carousel-body-wrapper');
+        const prevButton = wrapper.querySelector('.prev-button');
+        const nextButton = wrapper.querySelector('.next-button');
+        const items = carouselContainer.querySelectorAll('.carousel-item');
+        
+        const totalItems = items.length;
+        let currentIndex = 0; 
+        
+        let itemWidth = 500; 
+        let itemHeight = 350; 
+        const angle = 360 / totalItems; 
+        const radiusFactor = 0.9; 
+        let radius;
+
+        // 1. Ajusta el tamaño del contenedor del carrusel (CSS)
+        function adjustCarouselSize() {
+            if (window.innerWidth <= 768) { 
+                itemWidth = 300;
+                itemHeight = 200;
+            } else if (window.innerWidth <= 992) { 
+                itemWidth = 400;
+                itemHeight = 280;
+            } else { 
+                itemWidth = 500;
+                itemHeight = 350;
+            }
+            carouselContainer.style.width = `${itemWidth}px`;
+            carouselContainer.style.height = `${itemHeight}px`;
+            
+            positionItems(); 
+        }
+        
+        // 2. Calcula y aplica la posición 3D inicial
+        function calculateRadius() {
+            radius = (itemWidth / 2) / Math.tan(Math.PI / totalItems) * radiusFactor;
+        }
+
+        function positionItems() {
+            calculateRadius(); 
+            items.forEach((item, index) => {
+                item.style.transform = `
+                    rotateY(${index * angle}deg) 
+                    translateZ(${radius}px)
+                `;
+            });
+            updateCarousel(); 
+        }
+
+        // 3. Actualiza la rotación y los efectos (blur/escala)
+        function updateCarousel() {
+            calculateRadius(); 
+            const rotation = -currentIndex * angle; 
+            carouselContainer.style.transform = `translateZ(-${radius}px) rotateY(${rotation}deg)`;
+
+            items.forEach((item, index) => {
+                const distance = Math.abs(index - currentIndex);
+                const normalizedDistance = Math.min(distance, totalItems - distance); 
+                
+                const currentRadius = radius; 
+                const isMobile = window.innerWidth <= 768;
+
+                if (normalizedDistance === 0) { 
+                    item.style.filter = 'blur(0px)';
+                    item.style.opacity = '1';
+                    item.style.transform = `
+                        rotateY(${index * angle}deg) 
+                        translateZ(${currentRadius + (isMobile ? 50 : 80)}px)
+                        scale(${isMobile ? 1.05 : 1.1})
+                    `; 
+                    item.style.zIndex = '10';
+                    
+                } else if (normalizedDistance === 1) { 
+                    item.style.filter = 'blur(2px)'; 
+                    item.style.opacity = '0.8'; 
+                    item.style.transform = `
+                        rotateY(${index * angle}deg) 
+                        translateZ(${currentRadius + (isMobile ? 15 : 30)}px)
+                        scale(${isMobile ? 0.98 : 0.95})
+                    `; 
+                    item.style.zIndex = '5';
+                    
+                } else { 
+                    item.style.filter = 'blur(5px)'; 
+                    item.style.opacity = '0.3';
+                    item.style.transform = `
+                        rotateY(${index * angle}deg) 
+                        translateZ(${currentRadius - (isMobile ? 30 : 50)}px)
+                        scale(${isMobile ? 0.85 : 0.8})
+                    `; 
+                    item.style.zIndex = '1';
+                }
+            });
+        }
+
+        // Manejadores de eventos
+        prevButton.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+            updateCarousel();
+        });
+
+        nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % totalItems;
+            updateCarousel();
+        });
+
+        // Inicialización y reajuste
+        adjustCarouselSize();
+        window.addEventListener('resize', adjustCarouselSize); 
+    }
+
+    window.addEventListener('load', () => {
+        carouselContainers.forEach(initializeCarousel);
+    });
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        carouselContainers.forEach(initializeCarousel);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV de Helen Lizbeth Candray Batres</title>
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuración de Tailwind y Estilos Personalizados para replicar el CV original -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        
+        /* Definir el color de acento: MANTENEMOS AZUL OSCURO */
+        :root {
+            --cv-accent: #0047AB; /* Azul oscuro intenso */
+            --cv-light-accent: #e6f1ff; /* Fondo muy claro para referencias/habilidades */
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7;
+            padding: 0;
+        }
+        /* Añadimos 'relative' para que el botón de bandera se posicione correctamente */
+        .cv-container {
+            box-shadow: none;
+            padding: 1.5rem 1rem; 
+            min-height: 100vh;
+            max-width: 800px; /* Ancho fijo similar a un A4 */
+        }
+        
+        /* Clases de utilidad para aplicar el color de acento de forma dinámica */
+        .text-cv-accent { color: var(--cv-accent); }
+        .bg-cv-light-accent { background-color: var(--cv-light-accent); }
+        .border-cv-accent { border-color: var(--cv-accent); }
+
+        /* Estilo para la línea divisoria vertical (más visible y azul) */
+        .vertical-divider {
+            border-right: 2px solid var(--cv-accent);
+        }
+
+        /* Clase base para la animación de entrada */
+        .animated-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .slide-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Ajustes finos de tipografía para parecerse al documento */
+        h2 {
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 700; /* font-bold */
+        }
+        .text-header-icon {
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 400; /* font-normal */
+        }
+
+        /* Alineación tipo tabla para Experiencia/Formación */
+        .info-row {
+            display: grid;
+            grid-template-columns: 20% 80%; /* 20% para fecha/tipo, 80% para descripción */
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        /* Para el móvil, las columnas se apilan */
+        @media (max-width: 767px) {
+            .info-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* ESTILO ACTUALIZADO para el botón de bandera (Top-Right) */
+        #translate-btn-flag {
+            position: absolute;
+            top: 1.5rem; /* Más alto y lejos */
+            right: 1.5rem; /* A la derecha */
+            left: auto; /* Anulamos el left: 50% anterior */
+            transform: none; /* Anulamos el centrado horizontal */
+            z-index: 10;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            font-size: 2rem; 
+            line-height: 1;
+        }
+
+        #translate-btn-flag:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Ajuste de posición en móvil */
+        @media (max-width: 767px) {
+            #translate-btn-flag {
+                top: 0.5rem; 
+                right: 0.5rem;
+            }
+        }
+    </style>
+
+    
+</head>
+<body class="md:p-8 lg:p-12">
+
+    <!-- Contenedor Principal del CV. Usamos 'relative' para posicionar la bandera. -->
+    <div id="cv-main" class="cv-container mx-auto bg-white overflow-hidden p-6 md:p-10 lg:p-12 mt-8 md:mt-12 lg:mt-16 rounded-lg relative">
+        
+        <!-- Botón de Bandera (traducción) - MOVIDO FUERA DEL HEADER -->
+        <button id="translate-btn-flag" aria-label="Cambiar idioma" title="Cambiar a Inglés">
+            <span id="flag-icon" role="img" aria-label="Bandera de Reino Unido">
+                EG
+            </span>
+        </button>
+
+        <!-- CABECERA y PERFIL (Animación de entrada con retardo 0s) -->
+        <header id="header-section" class="animated-section mb-8 pb-4">
+            
+            <div class="flex flex-col items-center pt-8">
+                
+                <!-- Foto de Perfil -->
+                <div class="relative h-28 w-28 flex-shrink-0 mb-6">
+                    <img class="h-full w-full object-cover rounded-full border-4 border-cv-accent/50" 
+                         src="images/me_photo.svg" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/112x112/c3c3c3/000?text=HL';"
+                         alt="Foto de Perfil">
+                </div>
+                
+                <!-- Nombre -->
+                <h1 id="name-h1" class="text-3xl md:text-4xl font-extrabold text-gray-800 tracking-wider mb-4 whitespace-nowrap">
+                    HELEN LIZBETH CANDRAY BATRES
+                </h1>
+
+                <!-- Contactos -->
+                <div class="flex flex-wrap justify-start w-full gap-x-6 gap-y-1 mt-3 text-sm text-gray-700 max-w-md">
+                    <!-- Teléfono -->
+                    <span class="flex items-center space-x-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cv-accent"><path d="M22 16.92v3a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2zM12 11V2"/></svg>
+                        <span id="phone-span" class="text-header-icon">+503 7123-7476</span>
+                    </span>
+                    <!-- Email -->
+                    <span class="flex items-center space-x-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cv-accent"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
+                        <span id="email-span" class="text-header-icon">helenlizbeth@gmail.com</span>
+                    </span>
+                    <!-- Ubicación -->
+                    <span class="flex items-center space-x-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cv-accent"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span id="location-span" class="text-header-icon">San Martín, San Salvador</span>
+                    </span>
+                    <!-- Fecha de Nacimiento -->
+                    <span class="flex items-center space-x-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cv-accent"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                        <span id="dob-span" class="text-header-icon">23/05/2006</span>
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENIDO PRINCIPAL (Dos Columnas: 30% y 70%) -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mt-10">
+            
+            <!-- COLUMNA IZQUIERDA (30%) (Animación de entrada con retardo 0.2s) -->
+            <section id="left-column" class="md:col-span-4 space-y-6 text-gray-700 md:pr-6 md:vertical-divider animated-section" style="transition-delay: 0.2s;">
+                
+                <!-- CERTIFICACIONES -->
+                <div>
+                    <h2 id="cert-title" class="text-lg font-bold uppercase tracking-wider text-cv-accent mb-3 pb-1">CERTIFICACIONES</h2>
+                    
+                    <ul class="list-disc list-inside space-y-1 text-sm pl-2">
+                        <li class="hover:text-cv-accent transition duration-150"><span id="cert-c1" class="font-medium">Nivel C1 | 895 L&R TOEIC</span></li>
+                        <li class="hover:text-cv-accent transition duration-150"><span id="cert-excel" class="font-medium">Microsoft Excel 1000</span></li>
+                        <li class="hover:text-cv-accent transition duration-150"><span id="cert-python" class="font-medium">Python Certification 920</span></li>
+                    </ul>
+                </div>
+                
+                <!-- HABILIDADES BLANDAS -->
+                <div class="pt-4">
+                    <h2 id="softskills-title" class="text-lg font-bold uppercase tracking-wider text-cv-accent mb-3 pb-1">HABILIDADES BLANDAS</h2>
+                    <ul class="list-disc list-inside space-y-1 text-sm pl-2">
+                        <li id="softskill-1" class="hover:text-cv-accent transition duration-150">Liderazgo</li>
+                        <li id="softskill-2" class="hover:text-cv-accent transition duration-150">Creatividad</li>
+                        <li id="softskill-3" class="hover:text-cv-accent transition duration-150">Adaptabilidad</li>
+                        <li id="softskill-4" class="hover:text-cv-accent transition duration-150">Resolución de Conflicto</li>
+                    </ul>
+                </div>
+                
+                <!-- REFERENCIAS -->
+                <div class="pt-4">
+                    <h2 id="refs-title" class="text-lg font-bold uppercase tracking-wider text-cv-accent mb-3 pb-1">REFERENCIAS</h2>
+                    
+                    <!-- Referencia 1 -->
+                    <div class="mb-4 text-sm">
+                        <p id="ref1-name" class="font-semibold text-gray-800">Daniela Palacios</p>
+                        <p class="text-cv-accent">+503 6827-3041</p>
+                        <p id="ref1-role" class="text-xs text-gray-600">Ecocycle Project. Voluntariado</p>
+                        <p id="ref1-org" class="text-xs italic text-gray-500">Youth Ambassadors</p>
+                    </div>
+                    
+                    <!-- Referencia 2 -->
+                    <div class="mb-4 text-sm">
+                        <p id="ref2-name" class="font-semibold text-gray-800">Christopher Preza</p>
+                        <p class="text-cv-accent">+503 7095-4232</p>
+                        <p id="ref2-role" class="text-xs text-gray-600">Kathy Psicología</p>
+                        <p id="ref2-org" class="text-xs italic text-gray-500">Community Manager</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- COLUMNA DERECHA (70%) (Animación de entrada con retardo 0.4s) -->
+            <section id="right-column" class="md:col-span-8 space-y-8 text-gray-700 animated-section" style="transition-delay: 0.4s;">
+
+                <!-- FORMACIÓN ACADÉMICA -->
+                <div>
+                    <h2 id="edu-title" class="text-lg font-bold uppercase tracking-wider text-cv-accent mb-3 pb-1">FORMACIÓN ACADÉMICA</h2>
+                    
+                    <!-- Item Académico -->
+                    <div class="relative pl-0 mb-4 group text-sm">
+                        <h3 id="edu-1-degree" class="font-semibold text-base text-gray-800">Bachillerato General con Diplomado en Idioma Inglés</h3>
+                        <p id="edu-1-inst" class="text-gray-600">Complejo Educativo Dr. Orlando de Sola</p>
+                        <p class="text-cv-accent italic">2024-Presente</p>
+                    </div>
+                </div>
+
+                <!-- FORMACIÓN ACADÉMICA ADICIONAL -->
+                <div>
+                    <h2 id="addedu-title" class="text-lg font-bold uppercase tracking-wider text-cv-accent mb-3 pb-1">FORMACIÓN ACADÉMICA ADICIONAL</h2>
+                    
+                    <!-- Item Adicional 1 -->
+                    <div class="relative pl-0 mb-4 group text-sm">
+                        <h3 id="addedu-1-degree" class="font-semibold text-base text-gray-800">Diplomado en Inglés, Informática y Valores</h3>
+                        <p id="addedu-1-inst" class="text-gray-600">Centro ¡Supérate! Fundación Raíces</p>
+                        <p class="text-cv-accent italic">2023-Presente</p>
+                    </div>
+
+                    <!-- Item Adicional 2 -->
+                    <div class="relative pl-0 mb-4 group text-sm">
+                        <h3 id="addedu-2-degree" class="font-semibold text-base text-gray-800">Escuela de Líderes</h3>
+                        <p id="addedu-2-inst" class="text-gray-600">FUSALMO</p>
+                        <p class="text-cv-accent italic">Octubre 2020 - Presente</p>
+                    </div>
+
+                    <!-- Item Adicional 3 -->
+                    <div class="relative pl-0 mb-4 group text-sm">
+                        <h3 id="addedu-3-degree" class="font-semibold text-base text-gray-800">Curso en Cibercrimen</h3>
+                        <p id="addedu-3-inst" class="text-gray-600">UNODC Global Learning</p>
+                        <p class="text-cv-accent italic">Mayo-Mayo 2023</p>
+                    </div>
+
+                    <!-- Item Adicional 4 -->
+                    <div class="relative pl-0 mb-4 group text-sm">
+                        <h3 id="addedu-4-degree" class="font-semibold text-base text-gray-800">Curso de Ciudadanía</h3>
+                        <p id="addedu-4-inst" class="text-gray-600">CREO FUSADES</p>
+                        <p class="text-cv-accent italic">Febrero - Abril 2022</p>
+                    </div>
+                </div>
+
+                <!-- EXPERIENCIA -->
+                <div>
+                    <h2 id="exp-title" class="text-lg font-bold uppercase tracking-wider text-cv-accent mb-3 pb-1">EXPERIENCIA</h2>
+                    
+                    <!-- Experiencia 1: Uso de info-row para alineación de fechas -->
+                    <div class="info-row text-sm">
+                        <div id="exp-1-date" class="text-cv-accent italic font-semibold">Marzo - Julio</div>
+                        <div>
+                            <h3 id="exp-1-role" class="font-semibold text-base text-gray-800">Desarrollo de Branding</h3>
+                            <p id="exp-1-desc" class="text-gray-600">Creación del diseño de una webpage para la Expo Tech 2025 utilizando herramientas como Figma y Bootstrap</p>
+                            <p id="exp-1-org" class="text-xs italic text-gray-500">Centro ¡Supérate! Fundación Raíces</p>
+                        </div>
+                    </div>
+
+                    <!-- Experiencia 2 (Voluntariado) -->
+                    <div class="info-row text-sm">
+                        <div id="exp-2-date" class="text-cv-accent italic font-semibold">Noviembre - Presente</div>
+                        <div>
+                            <h3 id="exp-2-role" class="font-semibold text-base text-gray-800">Auxiliar docente de Escuela Bíblica (Voluntariado)</h3>
+                            <p id="exp-2-desc" class="text-gray-600">Diseño y desarrollo de charlas formativas evangélicas dirigidas a niños y pre-adolescentes.</p>
+                            <p id="exp-2-org" class="text-xs italic text-gray-500">Taber Carretera de Oro</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Lógica de Traducción (Traducción Real) ---
+            const translations = {
+                es: {
+                    // Header
+                    'dob-span': '23/05/2006',
+                    'location-span': 'San Martín, San Salvador',
+                    'cert-title': 'CERTIFICACIONES',
+                    'cert-c1': 'Nivel C1 | 895 L&R TOEIC',
+                    'cert-excel': 'Microsoft Excel 1000',
+                    'cert-python': 'Python Certification B20',
+
+                    // Soft Skills
+                    'softskills-title': 'HABILIDADES BLANDAS',
+                    'softskill-1': 'Liderazgo',
+                    'softskill-2': 'Creatividad',
+                    'softskill-3': 'Adaptabilidad',
+                    'softskill-4': 'Resolución de Conflicto',
+                    
+                    // References
+                    'refs-title': 'REFERENCIAS',
+                    'ref1-role': 'Ecocycle Project. Voluntariado',
+                    'ref1-org': 'Youth Ambassadors',
+                    'ref2-role': 'Kathy Psicología',
+                    'ref2-org': 'Community Manager', // Mantener en inglés por ser cargo
+
+                    // Education
+                    'edu-title': 'FORMACIÓN ACADÉMICA',
+                    'edu-1-degree': 'Bachillerato General con Diplomado en Idioma Inglés',
+                    'edu-1-inst': 'Complejo Educativo Dr. Orlando de Sola',
+                    
+                    // Additional Education
+                    'addedu-title': 'FORMACIÓN ACADÉMICA ADICIONAL',
+                    'addedu-1-degree': 'Diplomado en Inglés, Informática y Valores',
+                    'addedu-1-inst': 'Centro ¡Supérate! Fundación Raíces',
+                    'addedu-2-degree': 'Escuela de Líderes',
+                    'addedu-2-inst': 'FUSALMO',
+                    'addedu-3-degree': 'Curso en Cibercrimen',
+                    'addedu-3-inst': 'UNODC Global Learning',
+                    'addedu-4-degree': 'Curso de Ciudadanía',
+                    'addedu-4-inst': 'CREO FUSADES',
+
+                    // Experience
+                    'exp-title': 'EXPERIENCIA',
+                    'exp-1-date': 'Marzo - Julio',
+                    'exp-1-role': 'Desarrollo de Branding',
+                    'exp-1-desc': 'Creación del diseño de una webpage para la Expo Tech 2025 utilizando herramientas como Figma y Bootstrap',
+                    'exp-1-org': 'Centro ¡Supérate! Fundación Raíces',
+                    'exp-2-date': 'Noviembre - Presente',
+                    'exp-2-role': 'Auxiliar docente de Escuela Bíblica (Voluntariado)',
+                    'exp-2-desc': 'Diseño y desarrollo de charlas formativas evangélicas dirigidas a niños y pre-adolescentes.',
+                    'exp-2-org': 'Taber Carretera de Oro',
+                },
+                en: {
+                    // Header
+                    'dob-span': '05/23/2006', // US standard format
+                    'location-span': 'San Martín, San Salvador',
+                    'cert-title': 'CERTIFICATIONS',
+                    'cert-c1': 'C1 Level | 895 L&R TOEIC',
+                    'cert-excel': 'Microsoft Excel 1000',
+                    'cert-python': 'Python Certification 920',
+
+                    // Soft Skills
+                    'softskills-title': 'SOFT SKILLS',
+                    'softskill-1': 'Leadership',
+                    'softskill-2': 'Creativity',
+                    'softskill-3': 'Adaptability',
+                    'softskill-4': 'Conflict Resolution',
+                    
+                    // References
+                    'refs-title': 'REFERENCES',
+                    'ref1-role': 'Ecocycle Project. Volunteer',
+                    'ref1-org': 'Youth Ambassadors',
+                    'ref2-role': 'Kathy Psicología', // INSTITUTION NAME - NOT TRANSLATED
+                    'ref2-org': 'Community Manager', 
+                    
+                    // Education
+                    'edu-title': 'ACADEMIC TRAINING',
+                    'edu-1-degree': 'General Baccalaureate with English Language Diploma',
+                    'edu-1-inst': 'Complejo Educativo Dr. Orlando de Sola', // INSTITUTION NAME - NOT TRANSLATED
+                    
+                    // Additional Education
+                    'addedu-title': 'ADDITIONAL ACADEMIC TRAINING',
+                    'addedu-1-degree': 'Diploma in English, IT, and Values',
+                    'addedu-1-inst': 'Centro ¡Supérate! Fundación Raíces', // INSTITUTION NAME - NOT TRANSLATED
+                    'addedu-2-degree': 'School of Leaders',
+                    'addedu-2-inst': 'FUSALMO', // INSTITUTION NAME - NOT TRANSLATED
+                    'addedu-3-degree': 'Cybercrime Course',
+                    'addedu-3-inst': 'UNODC Global Learning', // INSTITUTION NAME - NOT TRANSLATED
+                    'addedu-4-degree': 'Citizenship Course',
+                    'addedu-4-inst': 'CREO FUSADES', // INSTITUTION NAME - NOT TRANSLATED
+
+                    // Experience
+                    'exp-title': 'EXPERIENCE',
+                    'exp-1-date': 'March - July',
+                    'exp-1-role': 'Branding Development',
+                    'exp-1-desc': 'Design creation of a webpage for Expo Tech 2025 using tools like Figma and Bootstrap',
+                    'exp-1-org': 'Centro ¡Supérate! Fundación Raíces', // ORGANIZATION NAME - NOT TRANSLATED
+                    'exp-2-date': 'November - Present',
+                    'exp-2-role': 'Bible School Teaching Assistant (Volunteer)',
+                    'exp-2-desc': 'Design and development of evangelical training talks aimed at children and pre-adolescents.',
+                    'exp-2-org': 'Taber Carretera de Oro', // ORGANIZATION NAME - NOT TRANSLATED
+                }
+            };
+
+            let currentLanguage = 'es';
+            const translateBtnFlag = document.getElementById('translate-btn-flag');
+            const flagIcon = document.getElementById('flag-icon');
+
+            // Función para aplicar la traducción
+            function applyTranslation(lang) {
+                const content = translations[lang];
+                
+                // Actualizar el atributo lang del documento
+                document.documentElement.lang = lang;
+
+                // Cambiar el contenido de todos los elementos mapeados por ID
+                for (const id in content) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.textContent = content[id];
+                    }
+                }
+                
+                // Actualizar la bandera y el título del botón
+                if (lang === 'en') {
+                    flagIcon.textContent = '🇪🇸';
+                    translateBtnFlag.title = 'Cambiar a Español';
+                } else {
+                    flagIcon.textContent = '🇬🇧';
+                    translateBtnFlag.title = 'Switch to English';
+                }
+            }
+
+            // Función principal para cambiar de idioma
+            function toggleLanguage() {
+                currentLanguage = currentLanguage === 'es' ? 'en' : 'es';
+                applyTranslation(currentLanguage);
+            }
+
+            // Inicializar y Adjuntar event listener
+            if (translateBtnFlag) {
+                translateBtnFlag.addEventListener('click', toggleLanguage);
+            }
+            
+            // --- Lógica de Animación (Mantenida) ---
+            function applySlideInAnimation() {
+                const sections = document.querySelectorAll('.animated-section');
+                sections.forEach(section => {
+                    const delay = parseFloat(section.style.transitionDelay || '0') * 1000;
+                    setTimeout(() => {
+                        section.classList.add('slide-in');
+                    }, delay);
+                });
+            }
+
+            applySlideInAnimation();
+        });
+    </script>
+</body>
+</html>

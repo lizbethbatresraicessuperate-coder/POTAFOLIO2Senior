@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helen Candray - Portafolio Académico</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+/* ----------------------------------------------
+* ESTILOS BASE Y ANIMACIONES
+---------------------------------------------- */
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+h1, h3 {
+    color: #0b0b57;
+}
+
+/* === ESTILOS DEL HEADER === */
+header {
+    background-color: transparent; 
+    padding: 0; 
+    height: 550px; 
+    width: 100%;
+    /* RUTA SUGERIDA: Reemplazar con tu imagen */
+    background-image: url('images/cover2.jpeg'); 
+    background-size: cover;
+    background-position: center center; 
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    animation: fadeInScale 1s ease-out;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2); 
+}
+
+.header-content {
+    color: white;
+    text-align: center;
+    z-index: 10;
+    padding: 0 15px;
+}
+
+.header-content h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: white; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    margin-bottom: 5px;
+}
+
+.header-content p {
+    font-size: 1.5rem;
+    color: #f0f0f0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 768px) {
+    header {
+        height: 350px; 
+    }
+    .header-content h1 {
+        font-size: 2.5rem;
+    }
+    .header-content p {
+        font-size: 1.2rem;
+    }
+}
+
+/* === SECCIÓN ACERCA DE MÍ (ANIMADA) === */
+.materia_es {
+    text-align: center;
+    margin-top: 10px;
+    opacity: 0; 
+    transform: translateY(20px); 
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.materia_es.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* === ESTILOS DE TARJETAS Y ANIMACIÓN === */
+.card-materia {
+    border: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 100%; 
+    opacity: 0; 
+    transform: translateY(30px); 
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Clase JS para animar las tarjetas */
+.card-materia.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card-materia:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(11, 11, 87, 0.2);
+}
+
+.card-materia .card-img-top {
+    height: 180px;
+    object-fit: cover;
+}
+
+.card-materia .card-body {
+    background-color: #f8f8ff; 
+}
+
+.card-materia h5 {
+    color: #0b0b57;
+    font-weight: bold;
+}
+
+/* === ESTILOS DE BOTONES Y FOOTER === */
+.btn-custom {
+    background-color: #0b0b57;
+    color: white;
+    border-radius: 20px;
+    padding: 0.5rem 1.5rem;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0 0.3rem;
+    transition: background-color 0.3s, transform 0.3s;
+}
+.btn-custom:hover {
+    background-color: #1919a3;
+    color: white;
+    transform: scale(1.05); 
+}
+.main-footer {
+    background-color: #0b0b57; 
+    color: #ffffff;
+    padding: 0; 
+    font-size: 0.9rem;
+}
+.footer-text {
+    margin-top: 10px; 
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px 0; 
+}
+.fixed-button {
+    background-color: #0b0b57; 
+    color: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    transition: background-color 0.3s, transform 0.3s;
+    position: fixed; 
+    right: 20px;
+    z-index: 1000;
+    cursor: pointer;
+}
+.fixed-button:hover {
+    background-color: #1919a3;
+    transform: scale(1.1);
+    color: white;
+}
+.scroll-to-top {
+    font-size: 24px;
+    bottom: 20px; 
+}
+.audio-float-button {
+    font-size: 1.8rem; 
+    bottom: 80px; 
+    border: none;
+    padding-left: 3px; 
+}
+
+/* AJUSTE PARA LA IMAGEN DEL LOGO */
+.navbar-brand img {
+    height: 40px; /* Define la altura máxima que debe tener el logo */
+    width: auto; /* Mantiene la proporción de la imagen automáticamente */
+}
+
+/* KEYFRAMES DE ANIMACIÓN */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+</style>
+</head>
+<body id="top">
+
+<audio id="myAudio" src="fondo_musical.mp3" preload="auto" loop></audio>
+
+<nav class="navbar navbar-expand-lg bg-white shadow-sm">
+<div class="container">
+    <a class="navbar-brand fw-bold" href="#">
+        <img src="images/LOGO.png" alt="Logo de la Marca"> 
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <ul class="navbar-nav">
+    <li class="nav-item"><a class="nav-link" href="PORTA-H-ENG.html">Inglés</a></li>
+    <li class="nav-item"><a class="nav-link" href="PORTA-H-VAL.html">Valores</a></li>
+    <li class="nav-item"><a class="nav-link" href="PORTA-H-IT.html">Informática</a></li>
+    <li class="nav-item"><a class="nav-link active" aria-current="page" href="PORTA-H-CV.html">CV</a></li>
+    </ul>
+    </div>
+</div>
+</nav>
+
+<header>
+    <div class="header-content">
+        <h1>HELEN CANDRAY</h1>
+        <p>Estudiante de Bachillerato y Becaria</p>
+        <div class="mt-4">
+            
+            <a href="PORTA-H-CV.html" target="_blank" class="btn btn-custom mx-2" style="background-color: #1919a3;">Ver mi CV</a>
+        </div>
+    </div>
+</header>
+
+<div id="about" class="materia_es container py-5">
+    <h2>Mi Trayectoria Académica</h2>
+    <p class="px-md-5">¡Hola! Soy Helen Candray, y este portafolio es un resumen de mis logros y aprendizajes durante mi beca. A lo largo de mi formación, he desarrollado una fuerte base en habilidades técnicas (Informática e Inglés) y he fortalecido mis habilidades blandas (Valores), enfocándome en el liderazgo, la gestión de proyectos y la salud integral. Te invito a explorar mis proyectos, reflexiones y el trabajo que he realizado en cada una de las áreas clave.</p>
+    <div class="mt-4">
+        <a href="#materias" class="btn-custom">Ver Áreas de Estudio</a>
+    </div>
+</div>
+
+<section id="materias" class="container my-5">
+    <h2 class="text-center mb-5">Áreas de Enfoque Principal</h2>
+    <div class="row g-4">
+        
+        <div class="col-md-4">
+            <div class="card card-materia observer-animate" data-delay="0s">
+                <img src="images/Inglés.png" class="card-img-top" alt="Banner de Inglés">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Inglés</h5>
+                    <p class="card-text">Explora mi progreso en el dominio del idioma, incluyendo certificaciones y proyectos de comunicación profesional.</p>
+                    <a href="PORTA-H-ENG.html" class="btn-custom">Ir a la Sección</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-materia observer-animate" data-delay="0.2s">
+                <img src="images/Valores.png" class="card-img-top" alt="Banner de Valores">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Valores</h5>
+                    <p class="card-text">Reflexiones sobre el trabajo en equipo, manejo del tiempo, salud mental y proyectos de emprendimiento (Shark Tank).</p>
+                    <a href="PORTA-H-VAL.html" class="btn-custom">Ir a la Sección</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-materia observer-animate" data-delay="0.4s">
+                <img src="images/IT.png" class="card-img-top" alt="Banner de Informática">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Informática</h5>
+                    <p class="card-text">Conoce mis habilidades en modelado 3D, desarrollo web (HTML/CSS/JS) y manejo de herramientas de ofimática avanzada.</p>
+                    <a href="PORTA-H-IT.html" class="btn-custom">Ir a la Sección</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<div class="container-fluid main-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center p-0"> 
+                <a href="https://www.canva.com/design/DAG4Vtsej0Q/KyN38-gDD55aU280rgGs3A/edit?utm_content=DAG4Vtsej0Q&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank" style="display: block;">
+                    <img src="images/imagen_footer2.png" alt="Imagen de Enlace del Footer" style="width: 100%; height: auto; display: block;">
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <p class="footer-text">
+                    &copy; 2025 Helen Candray. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <a href="#top" class="scroll-to-top fixed-button" title="Volver Arriba">
+        ↑ 
+    </a>
+</footer>
+
+<button id="audioControlBtn" class="audio-float-button fixed-button" title="Reproducir/Pausar Música de Fondo">
+    ▶
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    
+    // ----------------------------------------------
+    // LÓGICA DE AUDIO Y SCROLL
+    // ----------------------------------------------
+    const realAudio = document.getElementById('myAudio'); 
+    const audioButton = document.getElementById('audioControlBtn');
+    
+    function tryStartAudio() {
+        if (realAudio && realAudio.paused) {
+            realAudio.play().then(() => {
+                audioButton.innerHTML = '⏸';
+                document.removeEventListener('click', tryStartAudio);
+                document.removeEventListener('scroll', tryStartAudio);
+            }).catch(error => {
+                console.warn("Autoplay bloqueado. El usuario debe usar el botón de la esquina.");
+            });
+        }
+    }
+
+    document.addEventListener('click', tryStartAudio);
+    document.addEventListener('scroll', tryStartAudio);
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Control manual del Audio
+        if (audioButton && realAudio) {
+            audioButton.addEventListener('click', () => {
+                if (realAudio.paused) {
+                    realAudio.play().then(() => {
+                        audioButton.innerHTML = '⏸';
+                    }).catch(error => {
+                        console.error("No se pudo reproducir el audio manualmente:", error);
+                    });
+                } else {
+                    realAudio.pause();
+                    audioButton.innerHTML = '▶';
+                }
+            });
+        }
+
+        // SCROLL SUAVE (Funcionalidad Volver Arriba)
+        const scrollToTopBtn = document.querySelector('.scroll-to-top');
+        if (scrollToTopBtn) {
+            scrollToTopBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        }
+    
+        // ----------------------------------------------
+        // LÓGICA DE ANIMACIÓN AL HACER SCROLL (Intersection Observer)
+        // ----------------------------------------------
+        const observerOptions = {
+            root: null, // viewport
+            rootMargin: '0px',
+            threshold: 0.1 // Aparece cuando el 10% del elemento es visible
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const element = entry.target;
+                    
+                    // Animación de la sección "Acerca de Mí"
+                    if (element.classList.contains('materia_es')) {
+                         element.classList.add('visible');
+                    }
+                    
+                    // Animación de las tarjetas de materias
+                    if (element.classList.contains('observer-animate')) {
+                        const delay = element.getAttribute('data-delay') || '0s';
+                        element.style.transitionDelay = delay; 
+                        element.classList.add('visible');
+                    }
+                    
+                    // Detener la observación una vez que el elemento ha sido animado
+                    observer.unobserve(element);
+                }
+            });
+        }, observerOptions);
+
+        // Observa la sección "Acerca de Mí"
+        const aboutSection = document.getElementById('about');
+        if (aboutSection) {
+            observer.observe(aboutSection);
+        }
+
+        // Observa las tarjetas de materia
+        const animatedCards = document.querySelectorAll('.observer-animate');
+        animatedCards.forEach(card => {
+            observer.observe(card);
+        });
+    });
+
+</script>
+</body>
+</html>
